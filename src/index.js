@@ -63,6 +63,26 @@ export default class ThumbnailGenerator {
   }
 
   /**
+   * Method to generate one thumbnail by being given a percentage value.
+   *
+   * @method generateOneByPercentCb
+   *
+   * @param {Number} percent
+   * @param {Function} cb (err, string)
+   *
+   * @return {Void}
+   *
+   * @public
+   *
+   * @async
+   */
+  generateOneByPerentCb(percent, cb) {
+    this.generateOneByPercent(percent)
+      .then(result => cb(null, result))
+      .catch(cb);
+  }
+
+  /**
    * Method to generate thumbnails
    *
    * @method generate
@@ -105,5 +125,28 @@ export default class ThumbnailGenerator {
         .on('error', reject)
         .screenshots(settings);
     });
+  }
+
+  /**
+   * Method to generate thumbnails
+   *
+   * @method generateCb
+   *
+   * @param {String} [opts.folder]
+   * @param {Number} [opts.count]
+   * @param {String} [opts.size] - 'i.e. 320x320'
+   * @param {String} [opts.filename]
+   * @param {Function} cb - (err, array)
+   *
+   * @return {Void}
+   *
+   * @public
+   *
+   * @async
+   */
+  generateCb(opts, cb) {
+    this.generate(opts)
+      .then(result => cb(null, result))
+      .catch(cb);
   }
 }
