@@ -93,7 +93,7 @@ gulp.task('coverage:report', () => (
     .on('error', util.log)
 ));
 
-gulp.task('test:coverage', (done) => (
+gulp.task('test:coverage', done => (
   runSequence('coverage:instrument', 'test', 'coverage:report', done)
 ));
 
@@ -107,3 +107,4 @@ gulp.task('watch', () => (
 
 gulp.task('prebuild', ['clean', 'lint', 'test:coverage']);
 gulp.task('default', ['prebuild', 'build']);
+gulp.task('prepublish', ['default']);
