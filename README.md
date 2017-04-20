@@ -6,7 +6,7 @@
 
 ```js
 import ThumbnailGenerator from 'volume-thumbnail-generator';
-// const ThumbnailGenerator = require('./build/index').default;
+// const ThumbnailGenerator = require('volume-thumbnail-generator').default;
 
 const tg = new ThumbnailGenerator({
   sourcePath: '/tmp/test.mp4',
