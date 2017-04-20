@@ -4,7 +4,7 @@
 
 ## Quick Start
 
-```
+```js
 import ThumbnailGenerator from 'volume-thumbnail-generator';
 
 var tg = new ThumbnailGenerator({
