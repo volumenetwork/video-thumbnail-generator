@@ -4,5 +4,3 @@ node_js:
   - "5"
   - "6"
   - "7"
-before_install:
-  - "yarn global add gulp"
