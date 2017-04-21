@@ -10,14 +10,14 @@ export default class ThumbnailGenerator {
    * @constructor
    *
    * @param {String} [opts.sourcePath] - 'full path to video file'
-   * @param {String} [opts.thumbanilPath] - 'path to where thumbnail(s) should be saved'
+   * @param {String} [opts.thumbnailPath] - 'path to where thumbnail(s) should be saved'
    * @param {Number} [opts.percent]
    * @param {String} [opts.size]
    * @param {Logger} [opts.logger]
    */
   constructor(opts) {
     this.sourcePath = opts.sourcePath;
-    this.thumbailPath = opts.thumbnailPath;
+    this.thumbnailPath = opts.thumbnailPath;
     this.percent = `${opts.percent}%` || '90%';
     this.logger = opts.logger || null;
     this.size = opts.size || '320x240';
@@ -76,7 +76,7 @@ export default class ThumbnailGenerator {
    *
    * @async
    */
-  generateOneByPerentCb(percent, cb) {
+  generateOneByPercentCb(percent, cb) {
     this.generateOneByPercent(percent)
       .then(result => cb(null, result))
       .catch(cb);
@@ -100,7 +100,7 @@ export default class ThumbnailGenerator {
    */
   generate(opts) {
     const defaultSettings = {
-      folder: this.thumbailPath,
+      folder: this.thumbnailPath,
       count: 10,
       size: this.size,
       filename: this.fileNameFormat,
