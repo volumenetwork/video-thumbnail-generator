@@ -44,6 +44,9 @@ export default class ThumbnailGenerator {
    * @method generateOneByPercent
    *
    * @param {Number} percent
+   * @param {String} [opts.folder]
+   * @param {String} [opts.size] - 'i.e. 320x320'
+   * @param {String} [opts.filename]
    *
    * @return {Promise}
    *
@@ -51,15 +54,16 @@ export default class ThumbnailGenerator {
    *
    * @async
    */
-  generateOneByPercent(percent) {
+  generateOneByPercent(percent, opts) {
     if (percent < 0 || percent > 100) {
       throw new Error('Perect must be a value from 0-100');
     }
 
-    return this.generate({
+    return this.generate(_.assignIn(opts, {
       count: 1,
       timestamps: [`${percent}%`],
-    }).then(result => result.pop());
+    }))
+      .then(result => result.pop());
   }
 
   /**
@@ -104,6 +108,7 @@ export default class ThumbnailGenerator {
       count: 10,
       size: this.size,
       filename: this.fileNameFormat,
+      logger: this.logger,
     };
 
     const ffmpeg = this.getFfmpegInstance();
