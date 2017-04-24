@@ -55,7 +55,7 @@ tg.generateOneByPercentCb(90, (err, result) => {
 There are options that can be passed when generating thumbnails. Both `ThumbnailGenerate.generate(opts)` and `ThumbnailGenerate.generateOneByPercent(number, opts)` can take options. See example below to get screenshots at a resolution of 200x200:
 
 ```js
-tg.generate({
+tg.generate(90, {
   size: '200x200'
 })
   .then(console.log);
