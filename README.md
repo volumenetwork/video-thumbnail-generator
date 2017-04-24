@@ -30,7 +30,7 @@ tg.generateOneByPercent(90)
   .then(console.log);
   // 'test-thumbnail-320x240-0001.png'
  
-tg.generateCb({}, (err, result) => {
+tg.generateCb((err, result) => {
   console.log(result);
   // [ 'test-thumbnail-320x240-0001.png',
   //  'test-thumbnail-320x240-0002.png',
@@ -55,7 +55,7 @@ tg.generateOneByPercentCb(90, (err, result) => {
 There are options that can be passed when generating thumbnails. Both `ThumbnailGenerate.generate(opts)` and `ThumbnailGenerate.generateOneByPercent(number, opts)` can take options. See example below to get screenshots at a resolution of 200x200:
 
 ```js
-tg.generate(90, {
+tg.generate({
   size: '200x200'
 })
   .then(console.log);
@@ -68,7 +68,24 @@ tg.generate(90, {
   //  'test-thumbnail-200x200-0007.png',
   //  'test-thumbnail-200x200-0008.png',
   //  'test-thumbnail-200x200-0009.png',
-  //  'test-thumbnail-200x200-0010.png' ]  
+  //  'test-thumbnail-200x200-0010.png' ]
+
+
+tg.generateCb({
+  size: '200x200'
+}, (err, result) => {
+  console.log(result);
+  // [ 'test-thumbnail-200x200-0001.png',
+  //  'test-thumbnail-200x200-0002.png',
+  //  'test-thumbnail-200x200-0003.png',
+  //  'test-thumbnail-200x200-0004.png',
+  //  'test-thumbnail-200x200-0005.png',
+  //  'test-thumbnail-200x200-0006.png',
+  //  'test-thumbnail-200x200-0007.png',
+  //  'test-thumbnail-200x200-0008.png',
+  //  'test-thumbnail-200x200-0009.png',
+  //  'test-thumbnail-200x200-0010.png' ]    
+});
 ```
 
 The `opts` can take anything that options in [fluent-ffmpeg's Screenshots allow](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg#screenshotsoptions-dirname-generate-thumbnails)

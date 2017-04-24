@@ -72,6 +72,7 @@ export default class ThumbnailGenerator {
    * @method generateOneByPercentCb
    *
    * @param {Number} percent
+   * @param {Object} [opts]
    * @param {Function} cb (err, string)
    *
    * @return {Void}
@@ -80,10 +81,12 @@ export default class ThumbnailGenerator {
    *
    * @async
    */
-  generateOneByPercentCb(percent, cb) {
-    this.generateOneByPercent(percent)
-      .then(result => cb(null, result))
-      .catch(cb);
+  generateOneByPercentCb(percent, opts, cb) {
+    const callback = cb || opts;
+
+    this.generateOneByPercent(percent, opts)
+      .then(result => callback(null, result))
+      .catch(callback);
   }
 
   /**
@@ -150,8 +153,10 @@ export default class ThumbnailGenerator {
    * @async
    */
   generateCb(opts, cb) {
+    const callback = cb || opts;
+
     this.generate(opts)
-      .then(result => cb(null, result))
-      .catch(cb);
+      .then(result => callback(null, result))
+      .catch(callback);
   }
 }
