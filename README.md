@@ -70,3 +70,5 @@ tg.generate({
   //  'test-thumbnail-200x200-0009.png',
   //  'test-thumbnail-200x200-0010.png' ]  
 ```
+
+The `opts` can take anything that options in [fluent-ffmpeg's Screenshots allow](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg#screenshotsoptions-dirname-generate-thumbnails)
