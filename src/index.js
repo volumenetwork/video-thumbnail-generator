@@ -211,4 +211,13 @@ export default class ThumbnailGenerator {
         .run();
     });
   }
+
+  generatePaletteCb(opts, cb) {
+    const callback = cb || opts;
+
+    this.generatePalette(opts)
+      .then(result => callback(null, result))
+      .catch(callback);
+  }
 }
+
