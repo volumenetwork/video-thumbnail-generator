@@ -11,6 +11,7 @@ import ThumbnailGenerator from 'volume-thumbnail-generator';
 const tg = new ThumbnailGenerator({
   sourcePath: '/tmp/test.mp4',
   thumbnailPath: '/tmp/',
+  tmpDir: '/some/writeable/directory' //only required if you can't write to /tmp/ and you need to generate gifs
 });
 
 tg.generate()
@@ -48,6 +49,15 @@ tg.generateOneByPercentCb(90, (err, result) => {
   console.log(result);
   // 'test-thumbnail-320x240-0001.png'
 });
+
+tg.generateGif()
+  .then(console.log();
+  // '/full/path/to/video-1493133602092.gif'
+
+tg.generateGifCb((err, result) => {
+  console.log(result);
+  // '/full/path/to/video-1493133602092.gif'
+})
 ```
 
 ## Options
@@ -85,6 +95,14 @@ tg.generateCb({
   //  'test-thumbnail-200x200-0008.png',
   //  'test-thumbnail-200x200-0009.png',
   //  'test-thumbnail-200x200-0010.png' ]    
+});
+
+
+tg.generateGif({
+   fps: 0.75, //how many frames per second you want in your gif
+   scale: 180, //the smaller the number, the smaller the thumbnail
+   speedMultiple: 4, //this is 4x speed
+   deletePalette: true //to delete the palettefile that was generated to create the gif once gif is created 
 });
 ```
 

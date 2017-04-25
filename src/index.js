@@ -1,11 +1,13 @@
 import FfmpegCommand from 'fluent-ffmpeg';
 import Promise from 'bluebird';
 import _ from 'lodash';
+import del from 'del';
 
 /**
  * @class ThumbnailGenerator
  */
 export default class ThumbnailGenerator {
+
   /**
    * @constructor
    *
@@ -203,7 +205,7 @@ export default class ThumbnailGenerator {
       }
 
       ffmpeg
-        .inputOptions()
+        .inputOptions(inputOptions)
         .outputOptions(outputOptions)
         .on('end', complete)
         .on('error', reject)
@@ -230,6 +232,90 @@ export default class ThumbnailGenerator {
     const callback = cb || opts;
 
     this.generatePalette(opts)
+      .then(result => callback(null, result))
+      .catch(callback);
+  }
+
+  /**
+   * Method to create a short gif thumbnail from an mp4 video
+   *
+   * @method generateGif
+   *
+   * @param {Number} opts.fps
+   * @param {Number} opts.scale
+   * @param {Number} opts.speedMultiple
+   * @param {Boolean} opts.deletePalette
+   *
+   * @return {Promise}
+   *
+   * @public
+   */
+  generateGif(opts) {
+    const ffmpeg = this.getFfmpegInstance();
+    const defaultOpts = {
+      fps: 0.75,
+      scale: 180,
+      speedMultiplier: 4,
+      deletePalette: true,
+    };
+    const conf = _.assignIn(defaultOpts, opts);
+    const inputOptions = [];
+    const outputOptions = [`-filter_complex fps=${conf.fps},setpts=(1/${conf.speedMultiplier})*PTS,scale=${conf.scale}:-1:flags=lanczos[x];[x][1:v]paletteuse`];
+    const outputFileName = conf.fileName || `video-${Date.now()}.gif`;
+    const output = `${this.thumbnailPath}/${outputFileName}`;
+
+    function createGif(paletteFilePath) {
+      if (conf.offset) {
+        inputOptions.push(`-ss ${conf.offset}`);
+      }
+
+      if (conf.duration) {
+        inputOptions.push(`-t ${conf.duration}`);
+      }
+
+      return new Promise((resolve, reject) => {
+        outputOptions.unshift(`-i ${paletteFilePath}`);
+
+        function complete() {
+          if (conf.deletePalette === true) {
+            del.sync([paletteFilePath], {
+              force: true,
+            });
+          }
+          resolve(output);
+        }
+
+        ffmpeg
+          .inputOptions(inputOptions)
+          .outputOptions(outputOptions)
+          .on('end', complete)
+          .on('error', reject)
+          .output(output)
+          .run();
+      });
+    }
+
+    return this.generatePalette()
+      .then(createGif);
+  }
+
+  /**
+   * Method to create a short gif thumbnail from an mp4 video
+   *
+   * @method generateGifCb
+   *
+   * @param {Number} opts.fps
+   * @param {Number} opts.scale
+   * @param {Number} opts.speedMultiple
+   * @param {Boolean} opts.deletePalette
+   * @param {Function} cb - (err, array)
+   *
+   * @public
+   */
+  generateGifCb(opts, cb) {
+    const callback = cb || opts;
+
+    this.generateGif(opts)
       .then(result => callback(null, result))
       .catch(callback);
   }
