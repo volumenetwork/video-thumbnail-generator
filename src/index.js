@@ -166,10 +166,10 @@ export default class ThumbnailGenerator {
    *
    * @method generatePalette
    *
-   * @param string [opts.videoFilters]
-   * @param string [opts.offset]
-   * @param string [opts.duration]
-   * @param string [opts.videoFilters]
+   * @param {string} [opts.videoFilters]
+   * @param {string} [opts.offset]
+   * @param {string} [opts.duration]
+   * @param {string} [opts.videoFilters]
    *
    * @return {Promise}
    *
@@ -211,7 +211,21 @@ export default class ThumbnailGenerator {
         .run();
     });
   }
-
+  /**
+   * Method to generate the palette from a video (required for creating gifs)
+   *
+   * @method generatePaletteCb
+   *
+   * @param {string} [opts.videoFilters]
+   * @param {string} [opts.offset]
+   * @param {string} [opts.duration]
+   * @param {string} [opts.videoFilters]
+   * @param {Function} cb - (err, array)
+   *
+   * @return {Promise}
+   *
+   * @public
+   */
   generatePaletteCb(opts, cb) {
     const callback = cb || opts;
 
@@ -220,4 +234,3 @@ export default class ThumbnailGenerator {
       .catch(callback);
   }
 }
-
