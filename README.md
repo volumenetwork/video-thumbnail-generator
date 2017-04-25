@@ -64,6 +64,8 @@ tg.generateGifCb((err, result) => {
 
 There are options that can be passed when generating thumbnails. Both `ThumbnailGenerate.generate(opts)` and `ThumbnailGenerate.generateOneByPercent(number, opts)` can take options. See example below to get screenshots at a resolution of 200x200:
 
+### When generating screenshots/thumbnails
+
 ```js
 tg.generate({
   size: '200x200'
@@ -96,8 +98,12 @@ tg.generateCb({
   //  'test-thumbnail-200x200-0009.png',
   //  'test-thumbnail-200x200-0010.png' ]    
 });
+```
+The `opts` above can take anything that options in [fluent-ffmpeg's Screenshots allow](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg#screenshotsoptions-dirname-generate-thumbnails)
 
 
+### When generating gifs
+```js
 tg.generateGif({
    fps: 0.75, //how many frames per second you want in your gif
    scale: 180, //the smaller the number, the smaller the thumbnail
@@ -105,5 +111,3 @@ tg.generateGif({
    deletePalette: true //to delete the palettefile that was generated to create the gif once gif is created 
 });
 ```
-
-The `opts` can take anything that options in [fluent-ffmpeg's Screenshots allow](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg#screenshotsoptions-dirname-generate-thumbnails)
