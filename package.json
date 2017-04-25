@@ -22,7 +22,6 @@
     "babel-preset-es2016": "6.22.0",
     "babel-register": "6.24.0",
     "chai": "3.5.0",
-    "del": "^2.2.2",
     "eslint-config-airbnb": "14.1.0",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "3.0.2",
@@ -44,9 +43,10 @@
     "sinon-chai": "2.9.0"
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
+    "bluebird": "3.5.0",
     "fluent-ffmpeg": "2.1.0",
-    "lodash": "^4.17.4",
-    "moment": "^2.18.1"
+    "lodash": "4.17.4",
+    "moment": "2.18.1",
+    "del": "2.2.2"
   }
 }
