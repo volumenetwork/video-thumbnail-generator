@@ -22,6 +22,7 @@ export default class ThumbnailGenerator {
     this.logger = opts.logger || null;
     this.size = opts.size || '320x240';
     this.fileNameFormat = '%b-thumbnail-%r-%000i';
+    this.tmpDir = opts.tmpDir || '/tmp';
   }
 
   /**
@@ -158,5 +159,56 @@ export default class ThumbnailGenerator {
     this.generate(opts)
       .then(result => callback(null, result))
       .catch(callback);
+  }
+
+  /**
+   * Method to generate the palette from a video (required for creating gifs)
+   *
+   * @method generatePalette
+   *
+   * @param string [opts.videoFilters]
+   * @param string [opts.offset]
+   * @param string [opts.duration]
+   * @param string [opts.videoFilters]
+   *
+   * @return {Promise}
+   *
+   * @public
+   */
+  generatePalette(opts) {
+    const ffmpeg = this.getFfmpegInstance();
+    const defaultOpts = {
+      videoFilters: 'fps=10,scale=320:-1:flags=lanczos,palettegen',
+    };
+    const conf = _.assignIn(defaultOpts, opts);
+    const inputOptions = [
+      '-y',
+    ];
+    const outputOptions = [
+      `-vf ${conf.videoFilters}`,
+    ];
+    const output = `${this.tmpDir}/palette-${Date.now()}.png`;
+
+    return new Promise((resolve, reject) => {
+      function complete() {
+        resolve(output);
+      }
+
+      if (conf.offset) {
+        inputOptions.push(`-ss ${conf.offset}`);
+      }
+
+      if (conf.duration) {
+        inputOptions.push(`-t ${conf.duration}`);
+      }
+
+      ffmpeg
+        .inputOptions()
+        .outputOptions(outputOptions)
+        .on('end', complete)
+        .on('error', reject)
+        .output(output)
+        .run();
+    });
   }
 }
