@@ -1,6 +1,6 @@
 {
   "name": "video-thumbnail-generator",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Package to generate a thumbail for an mp4 video",
   "main": "build/index.js",
   "license": "MIT",
