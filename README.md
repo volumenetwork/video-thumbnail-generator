@@ -1,6 +1,7 @@
 # Video Thumbnail Generator
 
 [![Build Status](https://travis-ci.org/volumenetwork/video-thumbnail-generator.svg?branch=master)](https://travis-ci.org/volumenetwork/video-thumbnail-generator)
+![david-dm](https://david-dm.org/volumenetwork/video-thumbnail-generator.svg)
 
 ## Quick Start
 
