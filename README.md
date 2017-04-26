@@ -114,4 +114,7 @@ tg.generateGif({
 
 ## Tests
 
-Coming Soon
+`./node_modules/.bin/gulp test`
+
+Else, if you want to run with a code coverage report:
+`./node_modules/.bin/gulp test:coverage`
