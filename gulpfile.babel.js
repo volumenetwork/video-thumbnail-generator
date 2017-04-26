@@ -89,7 +89,7 @@ gulp.task('coverage:report', () => (
         dir: './coverage',
       },
     }))
-    .pipe(istanbul.enforceThresholds({ thresholds: { global: 0 } }))
+    .pipe(istanbul.enforceThresholds({ thresholds: { global: 10 } }))
     .on('error', util.log)
 ));
 

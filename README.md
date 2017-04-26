@@ -111,3 +111,7 @@ tg.generateGif({
    deletePalette: true //to delete the palettefile that was generated to create the gif once gif is created 
 });
 ```
+
+## Tests
+
+Coming Soon

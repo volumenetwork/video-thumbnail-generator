@@ -25,6 +25,10 @@ export default class ThumbnailGenerator {
     this.size = opts.size || '320x240';
     this.fileNameFormat = '%b-thumbnail-%r-%000i';
     this.tmpDir = opts.tmpDir || '/tmp';
+
+    // by include deps here, it is easier to mock them out
+    this.FfmpegCommand = FfmpegCommand;
+    this.del = del;
   }
 
   /**
@@ -35,7 +39,7 @@ export default class ThumbnailGenerator {
    * @private
    */
   getFfmpegInstance() {
-    return new FfmpegCommand({
+    return new this.FfmpegCommand({
       source: this.sourcePath,
       logger: this.logger,
     });
@@ -59,7 +63,7 @@ export default class ThumbnailGenerator {
    */
   generateOneByPercent(percent, opts) {
     if (percent < 0 || percent > 100) {
-      throw new Error('Perect must be a value from 0-100');
+      return Promise.reject(new Error('Percent must be a value from 0-100'));
     }
 
     return this.generate(_.assignIn(opts, {
@@ -263,6 +267,7 @@ export default class ThumbnailGenerator {
     const outputOptions = [`-filter_complex fps=${conf.fps},setpts=(1/${conf.speedMultiplier})*PTS,scale=${conf.scale}:-1:flags=lanczos[x];[x][1:v]paletteuse`];
     const outputFileName = conf.fileName || `video-${Date.now()}.gif`;
     const output = `${this.thumbnailPath}/${outputFileName}`;
+    const d = this.del;
 
     function createGif(paletteFilePath) {
       if (conf.offset) {
@@ -278,7 +283,7 @@ export default class ThumbnailGenerator {
 
         function complete() {
           if (conf.deletePalette === true) {
-            del.sync([paletteFilePath], {
+            d.sync([paletteFilePath], {
               force: true,
             });
           }
