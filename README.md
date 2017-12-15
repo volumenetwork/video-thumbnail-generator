@@ -6,8 +6,8 @@
 ## Quick Start
 
 ```js
-import ThumbnailGenerator from 'volume-thumbnail-generator';
-// const ThumbnailGenerator = require('volume-thumbnail-generator').default;
+import ThumbnailGenerator from 'video-thumbnail-generator';
+// const ThumbnailGenerator = require('video-thumbnail-generator').default;
 
 const tg = new ThumbnailGenerator({
   sourcePath: '/tmp/test.mp4',
