@@ -44,9 +44,9 @@
   },
   "dependencies": {
     "bluebird": "3.5.0",
+    "del": "2.2.2",
     "fluent-ffmpeg": "2.1.0",
     "lodash": "4.17.4",
-    "moment": "2.18.1",
-    "del": "2.2.2"
+    "moment": "2.18.1"
   }
 }
