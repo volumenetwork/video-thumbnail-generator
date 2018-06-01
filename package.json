@@ -47,6 +47,6 @@
     "del": "2.2.2",
     "fluent-ffmpeg": "2.1.0",
     "lodash": "4.17.4",
-    "moment": "2.18.1"
+    "moment": "2.22.2"
   }
 }
