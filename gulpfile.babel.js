@@ -5,7 +5,7 @@ import eslint from 'gulp-eslint';
 import babel from 'gulp-babel';
 import plumber from 'gulp-plumber';
 import istanbul from 'gulp-babel-istanbul';
-import util from 'gulp-util';
+import log from 'fancy-log';
 import del from 'del';
 import Instrumenter from 'isparta';
 
@@ -43,7 +43,7 @@ gulp.task('build', () => (
     }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(paths.buildDir))
-    .on('error', util.log)
+    .on('error', log)
 ));
 
 /**
@@ -69,7 +69,7 @@ gulp.task('test', () => (
       require: 'babel-register',
       reporter: 'list',
     }))
-    .on('error', util.log)
+    .on('error', log)
 ));
 
 gulp.task('coverage:report', () => (
@@ -87,7 +87,7 @@ gulp.task('coverage:report', () => (
       },
     }))
     .pipe(istanbul.enforceThresholds({ thresholds: { global: 10 } }))
-    .on('error', util.log)
+    .on('error', log)
 ));
 
 gulp.task('test:coverage', gulp.series('coverage:instrument', 'test', 'coverage:report'));
