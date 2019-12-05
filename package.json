@@ -13,7 +13,7 @@
     "clean": "./node_modules/.bin/gulp clean",
     "watch": "./node_modules/.bin/gulp watch",
     "test": "./node_modules/.bin/gulp test",
-    "prepublish": "./node_modules/.bin/gulp prepublish"
+    "prepare": "./node_modules/.bin/gulp prepare"
   },
   "devDependencies": {
     "babel-eslint": "7.2.1",

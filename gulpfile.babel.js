@@ -102,4 +102,4 @@ gulp.task('watch', () => (
 
 gulp.task('prebuild', gulp.series('clean', 'lint', 'test:coverage'));
 gulp.task('default', gulp.series('prebuild', 'build'));
-gulp.task('prepublish', gulp.series('default'));
+gulp.task('prepare', gulp.series('default'));
