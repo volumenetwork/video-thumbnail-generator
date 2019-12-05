@@ -26,7 +26,7 @@
     "eslint-plugin-jsx-a11y": "3.0.2",
     "eslint-plugin-mocha": "4.9.0",
     "eslint-plugin-react": "6.10.3",
-    "gulp": "3.9.1",
+    "gulp": "^4.0.2",
     "gulp-babel": "6.1.2",
     "gulp-babel-istanbul": "1.6.0",
     "gulp-eslint": "3.0.1",

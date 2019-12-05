@@ -8,7 +8,6 @@ import istanbul from 'gulp-babel-istanbul';
 import util from 'gulp-util';
 import del from 'del';
 import Instrumenter from 'isparta';
-import runSequence from 'run-sequence';
 
 const paths = {
   sourceFiles: ['src/**/*.js'],
@@ -21,9 +20,7 @@ paths.buildFiles = [`${paths.buildDir}/**/*.js`];
 /**
  * Task to remove assets from last build
  */
-gulp.task('clean', (done) => {
-  del(['build', 'coverage'], done);
-});
+gulp.task('clean', () => del(['build', 'coverage']));
 
 /**
  * Task to lint the src files
@@ -93,9 +90,7 @@ gulp.task('coverage:report', () => (
     .on('error', util.log)
 ));
 
-gulp.task('test:coverage', done => (
-  runSequence('coverage:instrument', 'test', 'coverage:report', done)
-));
+gulp.task('test:coverage', gulp.series('coverage:instrument', 'test', 'coverage:report'));
 
 /**
  * Task to watch the files whilst developing
@@ -105,6 +100,6 @@ gulp.task('watch', () => (
 ));
 
 
-gulp.task('prebuild', ['clean', 'lint', 'test:coverage']);
-gulp.task('default', ['prebuild', 'build']);
-gulp.task('prepublish', ['default']);
+gulp.task('prebuild', gulp.series('clean', 'lint', 'test:coverage'));
+gulp.task('default', gulp.series('prebuild', 'build'));
+gulp.task('prepublish', gulp.series('default'));
