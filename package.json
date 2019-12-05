@@ -22,7 +22,7 @@
     "babel-register": "6.24.0",
     "chai": "3.5.0",
     "eslint-config-airbnb": "14.1.0",
-    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "3.0.2",
     "eslint-plugin-mocha": "4.9.0",
     "eslint-plugin-react": "6.10.3",
